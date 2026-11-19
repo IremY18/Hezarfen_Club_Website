@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Üye Blogu · THKÜ Hezarfen</title>
+<style>
+:root{--bg:#f6f8fc;--surface:#fff;--text:#0f1b33;--muted:#5a6785;--line:#dde3ef;--brand:#2e538b;--accent:#d4a72c;--bad:#b3261e;--good:#1b7a3d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#0a1020;--surface:#121a30;--text:#eaf0ff;--muted:#9aa8c7;--line:#243050;--brand:#86a8e6;--accent:#e0b43a;--bad:#ff8a80;--good:#7fd99b;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{max-width:760px;margin:auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--text);text-decoration:none}
+.logo span span{color:var(--accent)}
+.brand-logo{width:38px;height:38px;border-radius:50%}
+header nav a{color:var(--brand);font-weight:600;text-decoration:none}
+main{max-width:760px;margin:auto;padding:36px 20px 60px}
+h1{margin:0 0 6px;font-size:clamp(26px,4vw,34px)}
+.lead{color:var(--muted);margin:0 0 24px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}
+.card h3{margin:0 0 4px}
+.date{font-size:13px;color:var(--muted);margin-bottom:8px}
+.body{white-space:pre-wrap;word-wrap:break-word;margin:0}
+form{display:grid;gap:12px}
+label{font-size:14px;font-weight:600;display:grid;gap:4px}
+input,textarea{font:inherit;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--text);width:100%}
+.btn{background:var(--accent);color:#1a1200;font-weight:700;padding:11px 22px;border-radius:10px;border:0;font-size:16px;cursor:pointer}
+.tabs{display:flex;gap:8px;margin-bottom:14px}
+.tabs button{font:inherit;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--text);padding:7px 16px;border-radius:99px;cursor:pointer}
+.tabs button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.link{background:none;border:0;color:var(--bad);cursor:pointer;font:inherit;font-size:14px;padding:8px 0 0}
+.msg{font-size:14px;min-height:20px}.msg.err{color:var(--bad)}.msg.ok{color:var(--good)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header><div class="bar">
+<a class="logo" href="index.html"><img class="brand-logo" src="assets/logo.webp" alt="" width="38" height="38"><span>THKÜ <span>Hezarfen</span></span></a>
+<nav><a href="index.html">← Ana Sayfa</a></nav>
+</div></header>
+<main>
+<h1>Üye Blogu</h1>
+<p class="lead">Topluluk üyelerinin yazıları. Üye ol, giriş yap ve sen de yaz.</p>
+
+<div id="setup" class="card" hidden><h3>Kurulum gerekli</h3><p>Blogun çalışması için <code>config.js</code> dosyasına Supabase bilgilerini yazmalısın. Adımlar <code>BLOG-KURULUM.md</code> dosyasında.</p></div>
+
+<div id="auth" class="card">
+<div class="tabs"><button id="tLogin" class="on" type="button">Giriş Yap</button><button id="tReg" type="button">Üye Ol</button></div>
+<form id="fLogin">
+<label>E-posta<input id="lMail" type="email" required autocomplete="email"></label>
+<label>Şifre<input id="lPass" type="password" required autocomplete="current-password"></label>
+<button class="btn" type="submit">Giriş Yap</button>
+</form>
+<form id="fReg" hidden>
+<label>Kullanıcı adı (3-20 karakter: harf, rakam, _)<input id="rUser" required maxlength="20" autocomplete="username"></label>
+<label>E-posta<input id="rMail" type="email" required autocomplete="email"></label>
+<label>Şifre (en az 8 karakter)<input id="rPass" type="password" required minlength="8" autocomplete="new-password"></label>
+<button class="btn" type="submit">Üye Ol</button>
+</form>
+<p id="aMsg" class="msg"></p>
+</div>
+
+<div id="me" class="card" hidden>
+<div class="top"><span>Merhaba, <b id="who"></b></span><button id="out" class="link" type="button" style="padding:0;color:var(--muted)">Çıkış</button></div>
+<form id="fPost">
+<label>Başlık<input id="pTitle" required minlength="3" maxlength="120"></label>
+<label>Yazın<textarea id="pBody" rows="6" required minlength="10" maxlength="5000"></textarea></label>
+<button class="btn" type="submit">Yayınla</button>
+</form>
+<p id="pMsg" class="msg"></p>
+</div>
+
+<div id="list"></div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var U=window.SUPABASE_URL,K=window.SUPABASE_ANON_KEY;
+if(!U||!K||U.indexOf('PROJE_ID')>-1){$('setup').hidden=false;$('auth').hidden=true;return}
+var sb=supabase.createClient(U,K),me=null;
+function say(el,t,ok){el.textContent=t;el.className='msg '+(ok?'ok':'err')}
+function hata(e){var m=(e&&e.message)||'';
+ if(/Invalid login/i.test(m))return 'E-posta veya şifre hatalı.';
+ if(/not confirmed/i.test(m))return 'Önce e-postana gelen doğrulama bağlantısına tıkla.';
+ if(/already|duplicate|unique/i.test(m))return 'Bu e-posta veya kullanıcı adı zaten kayıtlı.';
+ if(/Database error/i.test(m))return 'Kullanıcı adı geçersiz veya alınmış olabilir.';
+ return 'Bir hata oluştu, tekrar dene.'}
+function tab(reg){$('fLogin').hidden=reg;$('fReg').hidden=!reg;$('tLogin').className=reg?'':'on';$('tReg').className=reg?'on':'';say($('aMsg'),'',true)}
+$('tLogin').onclick=function(){tab(false)};$('tReg').onclick=function(){tab(true)};
+
+$('fLogin').onsubmit=async function(e){e.preventDefault();
+ var r=await sb.auth.signInWithPassword({email:$('lMail').value.trim(),password:$('lPass').value});
+ if(r.error)say($('aMsg'),hata(r.error),false);else $('fLogin').reset()};
+
+$('fReg').onsubmit=async function(e){e.preventDefault();
+ var u=$('rUser').value.trim();
+ if(!/^[A-Za-z0-9_]{3,20}$/.test(u))return say($('aMsg'),'Kullanıcı adı 3-20 karakter olmalı; yalnızca harf, rakam ve _ kullan.',false);
+ var r=await sb.auth.signUp({email:$('rMail').value.trim(),password:$('rPass').value,options:{data:{username:u}}});
+ if(r.error)return say($('aMsg'),hata(r.error),false);
+ if(!r.data.session)say($('aMsg'),'Kayıt alındı. E-postana gelen doğrulama bağlantısına tıkla, sonra giriş yap.',true);
+ $('fReg').reset()};
+
+$('out').onclick=function(){sb.auth.signOut()};
+
+$('fPost').onsubmit=async function(e){e.preventDefault();
+ var r=await sb.from('posts').insert({title:$('pTitle').value.trim(),body:$('pBody').value.trim()});
+ if(r.error)return say($('pMsg'),'Yazı yayınlanamadı. Başlık en az 3, yazı en az 10 karakter olmalı.',false);
+ $('fPost').reset();say($('pMsg'),'Yazın yayınlandı.',true);load()};
+
+async function load(){
+ var box=$('list');
+ var r=await sb.from('posts').select('id,title,body,created_at,author_id,profiles(username)').order('created_at',{ascending:false}).limit(50);
+ box.textContent='';
+ if(r.error){box.textContent='Yazılar yüklenemedi.';return}
+ if(!r.data.length){box.textContent='Henüz yazı yok. İlk yazıyı sen yaz!';return}
+ r.data.forEach(function(p){
+  var c=document.createElement('article');c.className='card';
+  var h=document.createElement('h3');h.textContent=p.title;
+  var m=document.createElement('div');m.className='date';
+  m.textContent=(p.profiles?p.profiles.username:'üye')+' · '+new Date(p.created_at).toLocaleDateString('tr-TR');
+  var b=document.createElement('p');b.className='body';b.textContent=p.body;
+  c.append(h,m,b);
+  if(me&&(me.id===p.author_id||me.admin)){
+   var d=document.createElement('button');d.type='button';d.className='link';d.textContent='Sil';
+   d.onclick=async function(){if(confirm('Bu yazı silinsin mi?')){await sb.from('posts').delete().eq('id',p.id);load()}};
+   c.append(d)}
+  box.append(c)})}
+
+async function refresh(){
+ var s=(await sb.auth.getSession()).data.session;me=null;
+ if(s){var p=await sb.from('profiles').select('username,is_admin').eq('id',s.user.id).maybeSingle();
+  me={id:s.user.id,name:p.data?p.data.username:'üye',admin:!!(p.data&&p.data.is_admin)}}
+ $('auth').hidden=!!me;$('me').hidden=!me;if(me)$('who').textContent=me.name;
+ load()}
+sb.auth.onAuthStateChange(function(){setTimeout(refresh,0)});
+refresh();
+})();
+</script>
+</body>
+</html>

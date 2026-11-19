@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>THKÜ Hezarfen Topluluğu</title>
+<style>
+:root{--bg:#f6f8fc;--surface:#fff;--text:#0f1b33;--muted:#5a6785;--line:#dde3ef;--brand:#2e538b;--accent:#d4a72c;--hero1:#0d2147;--hero2:#2e538b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1020;--surface:#121a30;--text:#eaf0ff;--muted:#9aa8c7;--line:#243050;--brand:#86a8e6;--accent:#e0b43a;--hero1:#050c1f;--hero2:#1f3d70;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a1020;--surface:#121a30;--text:#eaf0ff;--muted:#9aa8c7;--line:#243050;--brand:#86a8e6;--accent:#e0b43a;--hero1:#050c1f;--hero2:#1f3d70;color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{max-width:1080px;margin:auto;padding:12px 20px;display:flex;align-items:center;gap:16px;justify-content:space-between}
+.logo{font-weight:800;letter-spacing:.3px;color:var(--text);text-decoration:none}
+.logo span{color:var(--accent)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:99px;font-size:14px;font-weight:600}
+nav a:hover{background:var(--bg);color:var(--text)}
+section{max-width:1080px;margin:auto;padding:64px 20px}
+h2{font-size:clamp(26px,4vw,34px);margin:0 0 8px}
+.lead{color:var(--muted);margin:0 0 28px;max-width:640px}
+.hero{background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;max-width:none;padding:0}
+.hero .in{max-width:1080px;margin:auto;padding:96px 20px 88px}
+.tag{display:inline-block;background:rgba(255,255,255,.14);padding:4px 14px;border-radius:99px;font-size:13px;font-weight:600}
+.hero h1{font-size:clamp(34px,7vw,64px);line-height:1.08;margin:18px 0 14px;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{max-width:560px;opacity:.9;font-size:18px;margin:0 0 28px}
+.btn{display:inline-block;background:var(--accent);color:#1a1200;font-weight:700;padding:12px 24px;border-radius:10px;text-decoration:none;border:0;font-size:16px;cursor:pointer}
+.btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5);margin-left:8px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card h3{margin:0 0 6px;font-size:18px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.badge{display:inline-block;font-size:12px;font-weight:700;color:var(--brand);background:var(--bg);border:1px solid var(--line);padding:2px 10px;border-radius:99px;margin-bottom:10px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
+.stat{text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 10px}
+.stat b{display:block;font-size:40px;color:var(--brand);line-height:1.1}
+.stat span{color:var(--muted);font-size:14px}
+.alt{background:var(--surface);max-width:none;border-block:1px solid var(--line)}
+.alt .in{max-width:1080px;margin:auto}
+.date{font-size:13px;color:var(--muted);margin-bottom:6px}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tabs button{font:inherit;font-weight:600;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--text);padding:7px 16px;border-radius:99px;cursor:pointer}
+.tabs button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+form{display:grid;gap:12px}
+label{font-size:14px;font-weight:600;display:grid;gap:4px}
+input,select,textarea{font:inherit;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--text);width:100%}
+.two{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.links a{color:var(--brand);font-weight:600;text-decoration:none;margin-right:14px}
+footer{text-align:center;color:var(--muted);font-size:14px;padding:28px 20px 40px}
+.note{font-size:13px;color:var(--muted)}
+.logo{display:flex;align-items:center;gap:10px}
+.brand-logo{width:38px;height:38px;border-radius:50%}
+.hero-in{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.hero-logo{width:min(280px,64vw);height:auto;filter:drop-shadow(0 14px 34px rgba(0,0,0,.4))}
+.logos{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+.logos figure{margin:0;text-align:center;max-width:180px}
+.logos img{width:150px;height:150px}
+.logos figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.foot-logo{width:48px;height:48px;border-radius:50%;display:block;margin:0 auto 10px}
+</style>
+</head>
+<body>
+<header><div class="bar">
+<a class="logo" href="#ana"><img class="brand-logo" src="assets/logo.webp" alt="" width="38" height="38"><span>THKÜ <span>Hezarfen</span></span></a>
+<nav><a href="#ana">Ana Sayfa</a><a href="#hakkimizda">Hakkımızda</a><a href="#projeler">Projeler</a><a href="#duyurular">Duyurular</a><a href="uye-blog.html">Üye Blogu</a><a href="#iletisim">İletişim &amp; Katıl</a></nav>
+</div></header>
+
+<section class="hero" id="ana"><div class="in hero-in"><div>
+<span class="tag">THKÜ | UTAA · 2011’den beri</span>
+<h1>THKÜ <em>Hezarfen</em> Topluluğu</h1>
+<p>Türk Hava Kurumu Üniversitesi bünyesinde havacılık ve uzay alanlarında faaliyet gösteren, dinamizmi benimsemiş öğrenci topluluğu.</p>
+<a class="btn" href="#iletisim">Topluluğa Katıl</a><a class="btn ghost" href="#projeler">Projelerimiz</a>
+</div>
+<img class="hero-logo" src="assets/logo.webp" alt="THKÜ | UTAA Hezarfen Club logosu" width="280" height="280">
+</div></section>
+
+<section>
+<div class="two">
+<div class="card"><span class="badge">BİZ KİMİZ?</span><h3>Hezarfen</h3><p>Türk Hava Kurumu Üniversitesi bünyesinde faaliyet gösteren, havacılık ve uzay konularına yoğunlaşmış, bu alanlarda faaliyetler gerçekleştirmeye yönelmiş, dinamizmi benimsemiş, Atatürk ilke ve inkılaplarına derinden bağlı bir öğrenci topluluğudur.</p></div>
+<div class="card"><span class="badge">AMACIMIZ</span><h3>Daha ileriye</h3><p>Üyelerimizin fikren, ilmen ve bedenen daima daha ileride, daha kuvvetli olmasını amaçlarız. Entelektüel ilerleme ve gelişimi hedefleriz.</p></div>
+</div>
+</section>
+
+<section style="padding-top:0">
+<div class="stats">
+<div class="stat"><b data-n="120">0</b><span>Üye</span></div>
+<div class="stat"><b data-n="8">0</b><span>Aktif Proje</span></div>
+<div class="stat"><b data-n="35">0</b><span>Gerçekleşen Etkinlik</span></div>
+</div>
+<p class="note" style="text-align:center;margin-top:10px">Rakamlar örnektir; gerçek verilerinizle güncelleyin.</p>
+</section>
+
+<section id="neler" style="padding-top:0">
+<h2>Hezarfen’de Neler Yapıyoruz?</h2><p class="lead">Havacılık ve uzayın her alanında üretiyor, öğreniyor ve paylaşıyoruz.</p>
+<div class="grid">
+<div class="card"><span class="badge">PROJELER</span><h3>Havacılık ve Uzay Projeleri</h3><p>İHA, İKA, drone, roket, uçak teknolojisi, uçak yazılım ve sistemleri, mühendislik uygulamaları ve hava araçları uygulamaları.</p></div>
+<div class="card"><span class="badge">ETKİNLİKLER</span><h3>Öğrenme ve Paylaşım</h3><p>Workshoplar, eğitimler, yarışmalar, seminerler ve teknik geziler.</p></div>
+<div class="card"><span class="badge">KARİYER</span><h3>Kariyer ve Network</h3><p>Güçlü bir havacılık sektörü kariyeri ve profesyonel network inşası için tüm basamaklar. Ve çok daha fazlası…</p></div>
+</div></section>
+
+<section class="alt"><div class="in">
+<h2>Son Duyurular</h2><p class="lead">Topluluktan en yeni haberler.</p>
+<div class="grid" id="latest"></div>
+</div></section>
+
+<section id="hakkimizda">
+<h2>Hakkımızda &amp; Yönetim</h2>
+<p class="lead">Türk Hava Kurumu Üniversitesi bünyesinde faaliyet gösteren, havacılık ve uzay konularına yoğunlaşmış bir öğrenci topluluğuyuz.</p>
+<div class="two" style="margin-bottom:28px">
+<div class="card"><h3>Kuruluş</h3><p>Topluluğun kuruluş hikâyesini ve kuruluş yılını buraya yazın. <i>(Örnek metin.)</i></p></div>
+<div class="card"><h3>Tüzük</h3><p>Topluluk tüzüğünü PDF olarak bağlantı verebilir veya önemli maddelerini özetleyebilirsiniz. <i>(Örnek metin.)</i></p></div>
+</div>
+<div class="card" style="margin-bottom:28px"><h3>Logomuz</h3>
+<p style="margin-bottom:16px">Topluluğumuzun güncel ve onursal logoları.</p>
+<div class="logos">
+<figure><img src="assets/logo.webp" alt="Güncel Hezarfen Club logosu" width="150" height="150"><figcaption>Güncel logo</figcaption></figure>
+<figure><img src="assets/logo-onursal.webp" alt="Onursal Hezarfen Club logosu" width="150" height="150"><figcaption>Onursal logo (2017–2023)</figcaption></figure>
+</div></div>
+<h3>Yönetim Kurulu</h3>
+<div class="grid" style="margin-bottom:28px">
+<div class="card"><span class="badge">BAŞKAN</span><h3>Ad Soyad</h3><p>Topluluk Başkanı</p></div>
+<div class="card"><span class="badge">BAŞKAN YRD.</span><h3>Ad Soyad</h3><p>Başkan Yardımcısı</p></div>
+<div class="card"><span class="badge">SEKRETER</span><h3>Ad Soyad</h3><p>Genel Sekreter</p></div>
+</div>
+<h3>Komiteler</h3>
+<div class="grid">
+<div class="card"><h3>Sosyal Medya ve İletişim Komitesi</h3><p>Topluluğun tanıtımı, dijital dünyadaki varlığının yönetimi, iletişim süreçleri ve koordinasyonu, görünürlük çalışmaları ve görsel kimlik sürecinin profesyonel biçimde yönetilmesinden sorumludur.</p></div>
+<div class="card"><h3>Etkinlik Komitesi</h3><p>Teknik geziler, seminerler, workshoplar, paneller, eğitimler, yarışmalar, interaktif etkinlikler ve sosyal-kültürel etkinliklerin düzenlenmesinden ve yönetilmesinden sorumludur.</p></div>
+<div class="card"><h3>Ar-Ge ve Proje Komitesi</h3><p>Teknik projeler, Ar-Ge çalışmaları, proje geliştirme, projelerin teknik rehberliği, koordinasyonu ve yönetiminden sorumludur.</p></div>
+<div class="card"><h3>Sponsorluk Komitesi</h3><p>Sponsorluk çalışmaları, işbirlikleri ve kaynak geliştirme faaliyetlerinden, sektör liderleriyle kurulacak köprülerin yönetiminden sorumludur.</p></div>
+</div>
+</section>
+
+<section class="alt" id="projeler"><div class="in">
+<h2>Projelerimiz</h2><p class="lead">Çalıştığımız alanlar ve proje ekiplerimiz. Proje detaylarını ve başarılarımızı burada paylaşacağız.</p>
+<div class="grid">
+<div class="card"><span class="badge">ÇALIŞMA ALANI</span><h3>İHA ve Drone</h3><p>İnsansız hava aracı ve drone teknolojileri üzerine projeler.</p></div>
+<div class="card"><span class="badge">ÇALIŞMA ALANI</span><h3>İKA</h3><p>İnsansız kara aracı projeleri.</p></div>
+<div class="card"><span class="badge">ÇALIŞMA ALANI</span><h3>Roket</h3><p>Roket teknolojileri üzerine çalışmalar.</p></div>
+<div class="card"><span class="badge">ÇALIŞMA ALANI</span><h3>Uçak Yazılım ve Sistemleri</h3><p>Uçak teknolojisi, yazılım ve sistemleri ile mühendislik uygulamaları.</p></div>
+</div>
+</div></section>
+
+<section id="duyurular">
+<h2>Duyurular &amp; Haberler</h2><p class="lead">Etkinlik takvimi, makaleler ve haber yazıları.</p>
+<div class="tabs" id="tabs"></div>
+<div class="grid" id="posts"></div>
+<p style="margin-top:20px"><a class="btn" href="uye-blog.html">Üye Blogu: Sen de yaz →</a></p>
+</section>
+
+<section class="alt" id="iletisim"><div class="in">
+<h2>İletişim &amp; Katıl</h2><p class="lead">Topluluğumuza üye olarak ya da proje ekiplerimizde ve takımlarımızda yer alarak aktif rol alabilirsin. Diğer tüm detaylar için bir tık uzağındayız.</p>
+<div class="two">
+<div>
+<div class="card" style="margin-bottom:16px"><h3>İletişim</h3>
+<p>E-posta: hezarfen@ornek.edu.tr<br>Adres: THKÜ Kampüsü, Öğrenci Toplulukları Ofisi, Ankara</p>
+<p class="links" style="margin-top:12px"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">X</a><a href="#">YouTube</a></p></div>
+<p class="note">E-posta ve sosyal medya bağlantılarını kendi bilgilerinizle değiştirin.</p>
+</div>
+<div class="card"><h3>Üyelik Başvuru Formu</h3>
+<form id="f">
+<label>Ad Soyad<input name="ad" required></label>
+<label>Bölüm / Sınıf<input name="bolum" required></label>
+<label>E-posta<input name="mail" type="email" required></label>
+<label>İlgilendiğin Komite<select name="komite"><option>Sosyal Medya ve İletişim</option><option>Etkinlik</option><option>Ar-Ge ve Proje</option><option>Sponsorluk</option></select></label>
+<label>Neden katılmak istiyorsun?<textarea name="not" rows="3"></textarea></label>
+<button class="btn" type="submit">Başvuruyu Gönder</button>
+</form></div>
+</div>
+</div></section>
+
+<footer><img class="foot-logo" src="assets/logo.webp" alt="" width="48" height="48">© 2026 THKÜ Hezarfen Topluluğu · Tüm hakları saklıdır.</footer>
+
+<script>
+var POSTS=[
+{t:"Etkinlik",d:"28 Kasım 2026",h:"Havacılıkta Kariyer Söyleşisi",p:"Sektör profesyonelleriyle tanışma ve soru-cevap oturumu."},
+{t:"Haber",d:"15 Kasım 2026",h:"Yeni Dönem Üye Alımı Başladı",p:"Aramıza katılmak için başvuru formunu doldurabilirsiniz."},
+{t:"Makale",d:"2 Kasım 2026",h:"İHA Tasarımında Temel Prensipler",p:"Kanat profili, ağırlık dengesi ve itki seçimi üzerine kısa bir rehber."},
+{t:"Etkinlik",d:"10 Aralık 2026",h:"Proje Geliştirme Atölyesi",p:"Takım projeleri için ilk toplantı ve görev dağılımı."}
+];
+function card(x){return '<div class="card"><div class="date">'+x.t+' · '+x.d+'</div><h3>'+x.h+'</h3><p>'+x.p+'</p></div>'}
+document.getElementById('latest').innerHTML=POSTS.slice(0,3).map(card).join('');
+var cats=["Tümü","Etkinlik","Haber","Makale"],cur="Tümü",tabs=document.getElementById('tabs'),box=document.getElementById('posts');
+function draw(){tabs.innerHTML=cats.map(function(c){return '<button class="'+(c===cur?'on':'')+'" data-c="'+c+'">'+c+'</button>'}).join('');
+box.innerHTML=POSTS.filter(function(x){return cur==="Tümü"||x.t===cur}).map(card).join('')}
+tabs.addEventListener('click',function(e){var c=e.target.getAttribute('data-c');if(c){cur=c;draw()}});draw();
+document.querySelectorAll('[data-n]').forEach(function(el){var n=+el.dataset.n,i=0,s=Math.max(1,Math.ceil(n/40));
+var iv=setInterval(function(){i=Math.min(n,i+s);el.textContent=i+'+';if(i>=n)clearInterval(iv)},30)});
+document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();var d=new FormData(e.target);
+var body='Ad Soyad: '+d.get('ad')+'\nBölüm/Sınıf: '+d.get('bolum')+'\nE-posta: '+d.get('mail')+'\nKomite: '+d.get('komite')+'\nNot: '+d.get('not');
+location.href='mailto:hezarfen@ornek.edu.tr?subject='+encodeURIComponent('Üyelik Başvurusu')+'&body='+encodeURIComponent(body)});
+</script>
+</body>
+</html>
